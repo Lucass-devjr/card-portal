@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Portal - Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-logo">
+      <span class="topbar-logo-icon">♠</span>
+      <span>Card Portal</span>
+    </div>
+    <div class="topbar-right">
+      <span class="user-pill" id="user-display"></span>
+      <button id="btn-logout" class="btn btn-outline btn-sm">Sair</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="toolbar">
+      <div class="toolbar-filters">
+        <div class="search-wrapper">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="search-input" class="input-field search-input" placeholder="Buscar por nome ou edição...">
+        </div>
+        <select id="game-filter" class="input-field" style="max-width: 200px;">
+          <option value="">Todos os jogos</option>
+          <option value="Magic: The Gathering">Magic</option>
+          <option value="Pokémon TCG">Pokémon</option>
+          <option value="Yu-Gi-Oh!">Yu-Gi-Oh!</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" onclick="openCreate()">+ Nova Carta</button>
+    </div>
+
+    <div id="cards-grid" class="cards-grid"></div>
+
+    <div id="empty-state" class="empty-state" hidden>
+      <p>Nenhuma carta encontrada em seu acervo.</p>
+      <button class="btn btn-primary" onclick="openCreate()">Adicionar Carta</button>
+    </div>
+  </main>
+
+  <div id="card-modal" class="modal-overlay" hidden>
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modal-title">Nova Carta</h2>
+        <button class="modal-close" id="btn-close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="card-form">
+          <input type="hidden" id="card-id">
+          <p id="form-error" class="error-text"></p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="card-name-en">Nome (EN)</label>
+              <input type="text" id="card-name-en" class="input-field" required>
+            </div>
+            <div class="form-group">
+              <label for="card-name-pt">Nome (PT)</label>
+              <input type="text" id="card-name-pt" class="input-field">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="card-game">Card Game</label>
+              <select id="card-game" class="input-field" required>
+                <option value="">Selecione...</option>
+                <option value="Magic: The Gathering">Magic</option>
+                <option value="Pokémon TCG">Pokémon</option>
+                <option value="Yu-Gi-Oh!">Yu-Gi-Oh!</option>
+              </select>
+            </div>
+            <div class="form-group" id="edition-group">
+              <label for="card-edition">Edição</label>
+              <select id="card-edition" class="input-field" required>
+                <option value="">Selecione o jogo primeiro</option>
+              </select>
+              <div class="loading-indicator">Carregando edições...</div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="card-rarity">Raridade</label>
+              <select id="card-rarity" class="input-field" required>
+                <option value="">Selecione o jogo primeiro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="card-image">URL da Imagem</label>
+              <input type="url" id="card-image" class="input-field" placeholder="https://...">
+            </div>
+          </div>
+
+          <div class="form-row" style="margin-top: var(--space-2);">
+            <button type="button" id="btn-cancel" class="btn btn-outline" style="flex: 1;">Cancelar</button>
+            <button type="submit" class="btn btn-primary" style="flex: 1;">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/editions.js"></script>
+  <script src="js/cards.js"></script>
+</body>
+</html>
