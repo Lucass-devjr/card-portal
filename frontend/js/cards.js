@@ -191,7 +191,7 @@ async function openEdit(id) {
     const raritySelect = document.getElementById('card-rarity');
 
     gameSelect.value = card.card_game || '';
-    onGameChange(gameSelect, editionSelect, raritySelect);
+    await onGameChange(gameSelect, editionSelect, raritySelect);
 
     editionSelect.value = card.edition_name || '';
     raritySelect.value = card.rarity || '';

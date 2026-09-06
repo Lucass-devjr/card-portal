@@ -31,13 +31,16 @@ function populateSelect(selectEl, items, placeholder) {
 }
 
 function onGameChange(gameSelect, editionSelect, raritySelect) {
-  const game = gameSelect.value;
-  const group = document.getElementById('edition-group');
-  if (group) group.classList.add('is-loading');
-  
-  setTimeout(() => {
-    populateSelect(editionSelect, EDITIONS[game] || [], 'Selecione a edição');
-    populateSelect(raritySelect, RARITIES[game] || [], 'Selecione a raridade');
-    if (group) group.classList.remove('is-loading');
-  }, 300);
+  return new Promise(resolve => {
+    const game = gameSelect.value;
+    const group = document.getElementById('edition-group');
+    if (group) group.classList.add('is-loading');
+    
+    setTimeout(() => {
+      populateSelect(editionSelect, EDITIONS[game] || [], 'Selecione a edição');
+      populateSelect(raritySelect, RARITIES[game] || [], 'Selecione a raridade');
+      if (group) group.classList.remove('is-loading');
+      resolve();
+    }, 300);
+  });
 }
